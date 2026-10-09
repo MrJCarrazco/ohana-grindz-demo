@@ -66,7 +66,7 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,8px)}}
 
 /* ============ MARQUEE ============ */
-.marquee{background:var(--coral);color:#fff;overflow:hidden;white-space:nowrap;padding:.8rem 0;font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:.06em;transform:rotate(-1.2deg) scale(1.02);margin:-1rem 0 0;position:relative;z-index:5;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.marquee{background:var(--coral);color:#fff;overflow:hidden;white-space:nowrap;padding:.8rem 0;font-family:var(--display);font-weight:600;font-size:1.05rem;letter-spacing:.06em;position:relative;z-index:5;box-shadow:0 10px 30px rgba(0,0,0,.35)}
 .marquee-track{display:inline-block;animation:marquee 26s linear infinite}
 @media (prefers-reduced-motion: reduce){.marquee-track{animation:none}}
 .marquee span{margin:0 1.2rem}
@@ -154,9 +154,12 @@ body.link-hover .cursor-glow{width:230px;height:230px}
 @media (hover:none),(pointer:coarse){.cursor-dot,.cursor-glow{display:none}}
 
 /* headline letter-stagger */
+.h-word{display:inline-block;white-space:nowrap}
 .h-ch{display:inline-block;opacity:0;transform:translateY(.55em) rotate(4deg);animation:chpop .7s cubic-bezier(.2,.7,.2,1.2) forwards}
 @keyframes chpop{to{opacity:1;transform:none}}
-@media (prefers-reduced-motion: reduce){.h-ch{opacity:1;transform:none;animation:none}}
+.h-pop{display:inline-block;opacity:0;transform:translateY(.55em);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.7,.2,1.2)}
+.h-pop.go{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){.h-ch,.h-pop{opacity:1;transform:none;animation:none;transition:none}}
 
 /* giant outline marquee band */
 .aloha-band{overflow:hidden;white-space:nowrap;padding:3.2rem 0 2.6rem;background:var(--abyss)}
@@ -344,20 +347,25 @@ setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add
 const mt=document.getElementById('mtrack');mt.innerHTML+=mt.innerHTML;
 const at=document.getElementById('atrack');if(at){at.innerHTML+=at.innerHTML;at.innerHTML+=at.innerHTML}
 
-// headline letter-stagger (text nodes only; the shimmer span stays ONE unit — see skill pitfall)
+// headline letter-stagger (word-grouped so lines never break mid-word; shimmer enters via transition, not animation — its gradient anim must keep running)
 const h1=document.querySelector('.hero h1');
 if(h1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
   let delay=350;
   [...h1.childNodes].forEach(node=>{
     if(node.nodeType===3){
       const frag=document.createDocumentFragment();
-      for(const ch of node.textContent){
-        if(ch.trim()===''){frag.appendChild(document.createTextNode(ch));continue}
-        const s=document.createElement('span');s.className='h-ch';s.style.animationDelay=(delay+=28)+'ms';s.textContent=ch;frag.appendChild(s);
+      for(const word of node.textContent.split(/(\s+)/)){
+        if(word.trim()===''){frag.appendChild(document.createTextNode(word));continue}
+        const w=document.createElement('span');w.className='h-word';
+        for(const ch of word){
+          const s=document.createElement('span');s.className='h-ch';s.style.animationDelay=(delay+=28)+'ms';s.textContent=ch;w.appendChild(s);
+        }
+        frag.appendChild(w);
       }
       node.replaceWith(frag);
     }else if(node.classList&&node.classList.contains('shimmer')){
-      node.classList.add('h-ch');node.style.animationDelay=(delay+=140)+'ms';
+      node.classList.add('h-pop');
+      setTimeout(()=>node.classList.add('go'),delay+=180);
     }
   });
   h1.style.opacity=1;h1.style.animation='none';
