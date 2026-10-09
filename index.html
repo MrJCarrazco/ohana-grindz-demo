@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow"><!-- DEMO: keep noindex until commissioned -->
+<title>'Ohana Grindz — Hawaiian Plate Lunch in Wasilla, AK | DEMO</title>
+<meta name="description" content="DEMO website concept for 'Ohana Grindz, Wasilla AK — Hawaiian plate lunch and island favorites at 617 S Knik Goose Bay Rd.">
+<meta name="theme-color" content="#0b3d3b">
+<style>
+:root{
+  --deep:#0b3d3b; --deep2:#14544f; --coral:#e4572e; --coral-dark:#c2431f;
+  --sand:#faf6ee; --ink:#20231f; --seafoam:#8fc1b5; --ok:#2e7d32; --gold:#f2b134;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:var(--ink);background:var(--sand);line-height:1.6}
+.demo-banner{background:repeating-linear-gradient(45deg,#ffd54f,#ffd54f 12px,#212121 12px,#212121 24px);padding:3px}
+.demo-banner p{background:#212121;color:#ffd54f;text-align:center;font-weight:700;font-size:.85rem;padding:.55rem .75rem;letter-spacing:.03em}
+header{background:linear-gradient(160deg,var(--deep),var(--deep2));color:#fff;padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.5rem;position:sticky;top:0;z-index:40;box-shadow:0 2px 10px rgba(0,0,0,.3)}
+.logo{font-size:1.3rem;font-weight:800;letter-spacing:.02em}
+.logo span{color:var(--gold)}
+.call-top{background:var(--coral);color:#fff;font-weight:800;text-decoration:none;padding:.55rem 1rem;border-radius:6px}
+.call-top:hover,.call-top:focus{background:#f0683f}
+.hero{background:linear-gradient(160deg,var(--deep) 0%,var(--deep2) 70%);color:#fff;padding:3rem 1.25rem 4rem;text-align:center}
+.hero h1{font-size:clamp(1.7rem,5vw,2.8rem);line-height:1.2;max-width:40rem;margin:0 auto .75rem}
+.hero h1 em{color:var(--gold);font-style:normal}
+.hero p{max-width:34rem;margin:0 auto 1.5rem;color:#cfe3dd}
+.badge-row{display:flex;gap:.6rem;justify-content:center;flex-wrap:wrap;margin-bottom:1.6rem}
+.badge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:.3rem .9rem;font-size:.82rem;color:#e2efe9}
+.cta{display:inline-block;background:var(--coral);color:#fff;font-weight:800;font-size:1.1rem;text-decoration:none;padding:.9rem 1.6rem;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.4);margin:.25rem}
+.cta:hover,.cta:focus{background:#f0683f}
+.cta.alt{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.35)}
+.cta.alt:hover,.cta.alt:focus{background:rgba(255,255,255,.22)}
+.hero-svg{max-width:540px;width:92%;margin:2.2rem auto 0;display:block}
+.svg-caption{font-size:.75rem;color:#8fc1b5;margin-top:.4rem}
+section{padding:2.75rem 1.25rem;max-width:62rem;margin:0 auto}
+h2{font-size:1.6rem;color:var(--deep);margin-bottom:1rem}
+h2 .tick{color:var(--coral)}
+.services{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1rem}
+.card{background:#fff;border-radius:10px;padding:1.25rem;box-shadow:0 2px 8px rgba(11,61,59,.08);border-top:4px solid var(--coral)}
+.card h3{color:var(--deep);margin-bottom:.4rem;font-size:1.05rem}
+.card p{font-size:.95rem}
+.menu-note{font-size:.85rem;color:#5c6670;margin-top:1rem}
+.why{background:#fff}
+.why-wrap{max-width:62rem;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1.25rem}
+.why-item{display:flex;gap:.6rem;align-items:flex-start}
+.check{color:var(--ok);font-weight:900;font-size:1.2rem;line-height:1.3}
+.hours-nap{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.5rem}
+.map-wrap{margin-top:1.5rem;border-radius:10px;overflow:hidden;box-shadow:0 2px 10px rgba(11,61,59,.15)}
+.map-wrap iframe{display:block;width:100%;height:320px;border:0}
+.map-note{font-size:.8rem;color:#5c6670;margin-top:.5rem}
+.quote{background:var(--deep)}
+.quote-inner{max-width:34rem;margin:0 auto;color:#fff}
+.quote h2{color:#fff}
+.quote label{display:block;font-weight:600;margin:.8rem 0 .25rem;font-size:.95rem}
+.quote input,.quote textarea{width:100%;padding:.65rem;border:none;border-radius:6px;font:inherit}
+.quote button{margin-top:1.1rem;width:100%;background:var(--coral);color:#fff;font-weight:800;font-size:1.05rem;border:none;padding:.9rem;border-radius:8px;cursor:pointer}
+.quote button:hover{background:#f0683f}
+.quote small{display:block;margin-top:.6rem;color:#a9c6bd}
+footer{background:#07211f;color:#8fc1b5;text-align:center;padding:1.5rem 1rem 5.5rem;font-size:.85rem}
+.sticky-call{position:fixed;bottom:0;left:0;right:0;background:var(--coral);text-align:center;padding:.85rem;z-index:50;box-shadow:0 -3px 12px rgba(0,0,0,.3)}
+.sticky-call a{color:#fff;font-weight:800;text-decoration:none;font-size:1.05rem}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .6s ease,transform .6s ease}
+.reveal.in{opacity:1;transform:none}
+@media (max-width:480px){.hero{padding:2.2rem 1rem 3rem}section{padding:2rem 1rem}}
+</style>
+</head>
+<body>
+
+<div class="demo-banner"><p>DEMO — built for 'Ohana Grindz by a local web designer. Not yet commissioned by the business. Info below is from public listings — please verify.</p></div>
+
+<header>
+  <div class="logo">&#699;Ohana <span>Grindz</span></div>
+  <!-- JUAN: verify phone with owner before commissioning -->
+  <a class="call-top" href="tel:+19073760808">📞 907-376-0808</a>
+</header>
+
+<section class="hero" style="max-width:none">
+  <h1>Island Comfort Food, <em>Wasilla</em> Style</h1>
+  <p>Hawaiian plate lunch and local favorites on Knik Goose Bay Road — made fresh, served with aloha.</p>
+  <div class="badge-row">
+    <span class="badge">📍 617 S Knik Goose Bay Rd, STE F, Wasilla</span>
+    <span class="badge">⭐ Loved on DoorDash &amp; Uber Eats</span>
+  </div>
+  <a class="cta" href="tel:+19073760808">Call to Order</a>
+  <a class="cta alt" href="https://www.doordash.com/store/ohana-grindz-wasilla-27691664/" rel="noopener nofollow" target="_blank">Order Delivery</a>
+  <!-- Animated inline SVG: palm, sun, waves, steaming plate. Illustration, not a photo. -->
+  <svg class="hero-svg" viewBox="0 0 540 270" role="img" aria-label="Illustration of a steaming plate lunch under a palm tree by the water">
+    <circle cx="455" cy="60" r="30" fill="#f2b134">
+      <animate attributeName="r" values="30;33;30" dur="5s" repeatCount="indefinite"/>
+    </circle>
+    <g stroke="#f2b134" stroke-width="4" opacity=".7">
+      <line x1="455" y1="12" x2="455" y2="2"><animate attributeName="opacity" values=".7;.2;.7" dur="5s" repeatCount="indefinite"/></line>
+      <line x1="500" y1="24" x2="507" y2="17"><animate attributeName="opacity" values=".2;.7;.2" dur="5s" repeatCount="indefinite"/></line>
+      <line x1="410" y1="24" x2="403" y2="17"><animate attributeName="opacity" values=".7;.2;.7" dur="5s" repeatCount="indefinite"/></line>
+    </g>
+    <!-- water -->
+    <path d="M0 232 Q45 224 90 232 T180 232 T270 232 T360 232 T450 232 T540 232 L540 270 L0 270 Z" fill="#14544f">
+      <animate attributeName="d" dur="6s" repeatCount="indefinite"
+        values="M0 232 Q45 224 90 232 T180 232 T270 232 T360 232 T450 232 T540 232 L540 270 L0 270 Z;
+                M0 232 Q45 240 90 232 T180 232 T270 232 T360 232 T450 232 T540 232 L540 270 L0 270 Z;
+                M0 232 Q45 224 90 232 T180 232 T270 232 T360 232 T450 232 T540 232 L540 270 L0 270 Z"/>
+    </path>
+    <!-- palm tree -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="-1.5 95 230;1.5 95 230;-1.5 95 230" dur="7s" repeatCount="indefinite"/>
+      <path d="M92 230 Q86 160 100 120 L108 122 Q98 164 102 230 Z" fill="#6b4a2b"/>
+      <g fill="#1f7a63">
+        <path d="M104 121 Q140 96 176 108 Q142 118 112 128 Z"/>
+        <path d="M104 121 Q68 96 32 108 Q66 118 96 128 Z"/>
+        <path d="M104 119 Q126 84 162 80 Q130 100 108 124 Z"/>
+        <path d="M104 119 Q82 84 46 80 Q78 100 100 124 Z"/>
+        <path d="M104 117 Q104 80 120 62 Q112 92 108 120 Z"/>
+      </g>
+      <circle cx="98" cy="126" r="7" fill="#6b4a2b"/><circle cx="112" cy="129" r="7" fill="#6b4a2b"/>
+    </g>
+    <!-- plate with food + steam -->
+    <ellipse cx="330" cy="215" rx="95" ry="14" fill="#ffffff"/>
+    <ellipse cx="330" cy="209" rx="80" ry="12" fill="#f6f1e7"/>
+    <ellipse cx="298" cy="202" rx="30" ry="12" fill="#fff" opacity=".95"/>
+    <ellipse cx="298" cy="199" rx="26" ry="9" fill="#fdfaf3"/>
+    <path d="M330 196 q18 -14 44 -6 q8 10 -2 16 q-26 8 -42 -10 Z" fill="#8a5a2b"/>
+    <ellipse cx="368" cy="186" rx="14" ry="7" fill="#c9e265"/>
+    <g stroke="#dfe8e4" stroke-width="5" stroke-linecap="round" fill="none" opacity=".85">
+      <path d="M305 176 q6 -12 0 -24"><animate attributeName="opacity" values=".85;.15;.85" dur="3s" repeatCount="indefinite"/></path>
+      <path d="M330 172 q-6 -12 0 -24"><animate attributeName="opacity" values=".15;.85;.15" dur="3s" repeatCount="indefinite"/></path>
+      <path d="M355 176 q6 -12 0 -24"><animate attributeName="opacity" values=".85;.15;.85" dur="3.4s" repeatCount="indefinite"/></path>
+    </g>
+    <!-- hibiscus accent -->
+    <g>
+      <animateTransform attributeName="transform" type="rotate" values="0 480 200;8 480 200;0 480 200" dur="6s" repeatCount="indefinite"/>
+      <g fill="#e4572e">
+        <ellipse cx="480" cy="188" rx="9" ry="14"/>
+        <ellipse cx="468" cy="200" rx="14" ry="9"/>
+        <ellipse cx="492" cy="200" rx="14" ry="9"/>
+        <ellipse cx="473" cy="212" rx="9" ry="13" transform="rotate(30 473 212)"/>
+        <ellipse cx="487" cy="212" rx="9" ry="13" transform="rotate(-30 487 212)"/>
+      </g>
+      <circle cx="480" cy="201" r="5" fill="#f2b134"/>
+    </g>
+  </svg>
+  <p class="svg-caption">Illustration — real food photos coming soon</p>
+</section>
+
+<section class="reveal">
+  <h2><span class="tick">//</span> What We're Known For</h2>
+  <div class="services">
+    <div class="card"><h3>Plate Lunches</h3><p>The island classic — generous mains with rice and mac salad, built to fuel a real Alaska day.</p></div>
+    <div class="card"><h3>Island BBQ</h3><p>Sweet-and-savory grilled favorites that keep Wasilla coming back — rated 4.7+ by hundreds of local orders.</p></div>
+    <div class="card"><h3>Local Favorites</h3><p>Comfort food with aloha, portioned the Hawaiian way. Ask about today's specials when you call.</p></div>
+    <div class="card"><h3>Takeout &amp; Delivery</h3><p>Grab it at the window on Knik Goose Bay Rd, or get it delivered through DoorDash and Uber Eats.</p></div>
+  </div>
+  <p class="menu-note">Sample menu preview — see our Facebook page or call for today's full menu and prices.</p>
+  <!-- JUAN: confirm menu categories with owner — kept generic on purpose; ratings claim sourced from public DoorDash/UberEats listings (4.7-4.9) -->
+</section>
+
+<section class="why reveal" style="max-width:none">
+  <div class="why-wrap">
+    <h2 style="grid-column:1/-1"><span class="tick">//</span> Why 'Ohana?</h2>
+    <div class="why-item"><span class="check">✓</span><p>'Ohana means family — everyone eats</p></div>
+    <div class="why-item"><span class="check">✓</span><p>Made fresh when you order it</p></div>
+    <div class="why-item"><span class="check">✓</span><p>Easy pickup right off Knik Goose Bay Rd</p></div>
+    <div class="why-item"><span class="check">✓</span><p>Delivery through the apps you already use</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <h2><span class="tick">//</span> Find Us</h2>
+  <div class="hours-nap">
+    <div>
+      <p><strong>'Ohana Grindz</strong><br>617 S Knik Goose Bay Rd, STE F<br>Wasilla, AK 99654<br>
+      <a href="tel:+19073760808">907-376-0808</a></p>
+      <p style="margin-top:.75rem"><em>Address from public listings — call to confirm today's hours before heading over.</em></p>
+    </div>
+    <div>
+      <p><strong>Order ahead:</strong><br>
+      <a href="tel:+19073760808">Call the kitchen</a><br>
+      <a href="https://www.doordash.com/store/ohana-grindz-wasilla-27691664/" rel="noopener nofollow" target="_blank">DoorDash delivery</a></p>
+    </div>
+  </div>
+  <div class="map-wrap">
+    <iframe title="Map — 'Ohana Grindz, 617 S Knik Goose Bay Rd, Wasilla"
+      src="https://www.openstreetmap.org/export/embed.html?bbox=-149.4786%2C61.5646%2C-149.4586%2C61.5746&amp;layer=mapnik&amp;marker=61.5696%2C-149.4686"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <p class="map-note">Map data © OpenStreetMap contributors. Marker approximate — verify before commissioning. <a href="https://www.openstreetmap.org/?mlat=61.5696&amp;mlon=-149.4686#map=16/61.5696/-149.4686" target="_blank" rel="noopener">View larger map</a></p>
+</section>
+
+<section class="quote reveal" style="max-width:none">
+  <div class="quote-inner">
+    <h2>Catering or a Big Order?</h2>
+    <!-- DEMO: form disabled. On commission: action="https://formsubmit.co/OWNER_EMAIL" method="POST" -->
+    <form onsubmit="alert('Demo form — not connected yet. On the live site this goes straight to the restaurant\'s email.');return false">
+      <label for="n">Name</label><input id="n" name="name" required>
+      <label for="p">Phone</label><input id="p" name="phone" type="tel" required>
+      <label for="m">What are you feeding people for?</label><textarea id="m" name="message" rows="4" required></textarea>
+      <button type="submit">Send Request</button>
+      <small>Demo form — not connected. The live version emails the restaurant directly.</small>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>DEMO concept site — not commissioned by 'Ohana Grindz. Built by a Wasilla-local web designer as a free preview.</p>
+  <p>Business info sourced from public directories; no affiliation implied.</p>
+</footer>
+
+<div class="sticky-call"><a href="tel:+19073760808">📞 Tap to Call — 907-376-0808</a></div>
+
+<script>
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')),2500);// safety: never leave content hidden
+</script>
+</body>
+</html>
