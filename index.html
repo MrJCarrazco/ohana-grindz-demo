@@ -139,6 +139,32 @@ footer{background:#04100f;color:rgba(158,216,200,.55);text-align:center;padding:
 .reveal.in{opacity:1;transform:none}
 .reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
 
+/* film grain — cinematic texture over everything */
+.grain{position:fixed;inset:-50%;width:200%;height:200%;z-index:58;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation:grainshift 7s steps(10) infinite}
+@keyframes grainshift{0%,100%{transform:translate(0,0)}10%{transform:translate(-3%,-2%)}30%{transform:translate(2%,-4%)}50%{transform:translate(-4%,3%)}70%{transform:translate(3%,2%)}90%{transform:translate(-2%,4%)}}
+@media (prefers-reduced-motion: reduce){.grain{animation:none}}
+
+/* custom cursor glow (desktop pointer only) */
+.cursor-dot,.cursor-glow{position:fixed;top:0;left:0;z-index:70;pointer-events:none;border-radius:50%;transform:translate(-50%,-50%)}
+.cursor-dot{width:8px;height:8px;background:var(--mango)}
+.cursor-glow{width:150px;height:150px;background:radial-gradient(circle,rgba(255,180,58,.16),transparent 65%);transition:width .3s ease,height .3s ease}
+body.link-hover .cursor-glow{width:230px;height:230px}
+@media (hover:none),(pointer:coarse){.cursor-dot,.cursor-glow{display:none}}
+
+/* headline letter-stagger */
+.h-ch{display:inline-block;opacity:0;transform:translateY(.55em) rotate(4deg);animation:chpop .7s cubic-bezier(.2,.7,.2,1.2) forwards}
+@keyframes chpop{to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){.h-ch{opacity:1;transform:none;animation:none}}
+
+/* giant outline marquee band */
+.aloha-band{overflow:hidden;white-space:nowrap;padding:3.2rem 0 2.6rem;background:var(--abyss)}
+.aloha-track{display:inline-block;animation:marquee 32s linear infinite;font-family:var(--display);font-weight:800;font-size:clamp(4rem,11vw,8.5rem);line-height:1;letter-spacing:.02em}
+.aloha-track span{margin:0 2.4rem;color:transparent;-webkit-text-stroke:1.5px rgba(247,239,226,.22)}
+.aloha-track span.fill{color:var(--mango);-webkit-text-stroke:0;font-style:italic;font-weight:500}
+@media (prefers-reduced-motion: reduce){.aloha-track{animation:none}}
+
 @media (max-width:760px){
   .menu-grid{grid-template-columns:1fr}
   .dish.feature{min-height:340px}
@@ -151,6 +177,9 @@ footer{background:#04100f;color:rgba(158,216,200,.55);text-align:center;padding:
 <body>
 
 <div class="demo-banner"><p>DEMO — built for 'Ohana Grindz by a local web designer. Not yet commissioned by the business. Info below is from public listings — please verify.</p></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor-glow" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
 
 <header>
   <div class="logo">&#699;Ohana <em>Grindz</em></div>
@@ -256,6 +285,10 @@ footer{background:#04100f;color:rgba(158,216,200,.55);text-align:center;padding:
   <p class="proof-src reveal">Ratings from public DoorDash, Uber Eats &amp; review listings, Oct 2026.</p>
 </div>
 
+<div class="aloha-band" aria-hidden="true"><div class="aloha-track" id="atrack">
+  <span>&#699;OHANA</span><span class="fill">means</span><span>FAMILY</span><span class="fill">·</span>
+</div></div>
+
 <section>
   <p class="sec-kicker reveal">Find Us</p>
   <h2 class="reveal">Right off <em>Knik Goose Bay</em> Road</h2>
@@ -309,6 +342,49 @@ setTimeout(()=>document.querySelectorAll('.reveal').forEach(el=>el.classList.add
 
 // marquee: duplicate track for seamless loop
 const mt=document.getElementById('mtrack');mt.innerHTML+=mt.innerHTML;
+const at=document.getElementById('atrack');if(at){at.innerHTML+=at.innerHTML;at.innerHTML+=at.innerHTML}
+
+// headline letter-stagger (text nodes only; the shimmer span stays ONE unit — see skill pitfall)
+const h1=document.querySelector('.hero h1');
+if(h1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  let delay=350;
+  [...h1.childNodes].forEach(node=>{
+    if(node.nodeType===3){
+      const frag=document.createDocumentFragment();
+      for(const ch of node.textContent){
+        if(ch.trim()===''){frag.appendChild(document.createTextNode(ch));continue}
+        const s=document.createElement('span');s.className='h-ch';s.style.animationDelay=(delay+=28)+'ms';s.textContent=ch;frag.appendChild(s);
+      }
+      node.replaceWith(frag);
+    }else if(node.classList&&node.classList.contains('shimmer')){
+      node.classList.add('h-ch');node.style.animationDelay=(delay+=140)+'ms';
+    }
+  });
+  h1.style.opacity=1;h1.style.animation='none';
+}
+
+// custom cursor
+const dot=document.querySelector('.cursor-dot'),glow=document.querySelector('.cursor-glow');
+if(dot&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  let gx=innerWidth/2,gy=innerHeight/2,tx=gx,ty=gy;
+  addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px'});
+  (function glide(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.left=gx+'px';glow.style.top=gy+'px';requestAnimationFrame(glide)})();
+  document.querySelectorAll('a,button').forEach(el=>{
+    el.addEventListener('pointerenter',()=>document.body.classList.add('link-hover'));
+    el.addEventListener('pointerleave',()=>document.body.classList.remove('link-hover'));
+  });
+}
+
+// hero depth: layers follow the pointer
+const hero=document.querySelector('.hero');
+if(hero&&matchMedia('(hover:hover) and (pointer:fine)').matches&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const lyr=[['.sun',18],['.palm.left',10],['.palm.right',14],['.hero h1',6],['.hero .sub',4]].map(([s,d])=>[hero.querySelector(s)||document.querySelector(s),d]).filter(([el])=>el);
+  hero.addEventListener('pointermove',e=>{
+    const r=hero.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width-.5,ny=(e.clientY-r.top)/r.height-.5;
+    for(const [el,d] of lyr)el.style.translate=`${(-nx*d).toFixed(1)}px ${(-ny*d*.6).toFixed(1)}px`;
+  });
+  hero.addEventListener('pointerleave',()=>{for(const [el] of lyr)el.style.translate=''});
+}
 
 // animated counters
 const cio=new IntersectionObserver(es=>es.forEach(e=>{
