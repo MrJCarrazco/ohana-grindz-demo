@@ -49,6 +49,12 @@ header{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-
 .palm.right{right:-50px;transform-origin:bottom center;animation:sway 9.5s ease-in-out infinite reverse}
 @keyframes sway{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(2.4deg)}}
 #petals{position:absolute;inset:0;z-index:0;pointer-events:none}
+.rays{position:absolute;left:50%;bottom:17%;width:min(90vw,760px);aspect-ratio:1;transform:translate(-50%,42%);z-index:-3;pointer-events:none;opacity:.5;
+  background:repeating-conic-gradient(from 0deg at 50% 50%,rgba(255,180,58,.14) 0deg 7deg,transparent 7deg 22deg);
+  -webkit-mask-image:radial-gradient(circle,#000 0%,transparent 62%);mask-image:radial-gradient(circle,#000 0%,transparent 62%);
+  animation:rayspin 70s linear infinite}
+@keyframes rayspin{to{transform:translate(-50%,42%) rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.rays{animation:none}}
 .kicker{font-size:.82rem;letter-spacing:.42em;text-transform:uppercase;color:var(--seafoam);margin-bottom:1.1rem;opacity:0;animation:rise .9s .15s ease forwards}
 .hero h1{font-family:var(--display);font-weight:800;font-size:clamp(2.6rem,8.2vw,5.6rem);line-height:1.02;color:var(--sand);max-width:13ch;margin:0 auto .3rem;text-wrap:balance;opacity:0;animation:rise .9s .3s ease forwards}
 .hero h1 .shimmer{font-style:italic;font-weight:500;background:linear-gradient(100deg,var(--mango) 20%,#ffe9b0 40%,var(--coral-hot) 60%,var(--mango) 80%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shimmer 5.5s linear infinite}
@@ -93,6 +99,25 @@ h2 em{font-style:italic;font-weight:500;color:var(--mango)}
 .dish.feature .plate-art{position:absolute;top:1.4rem;right:1.2rem;width:min(52%,230px);animation:floaty 7s ease-in-out infinite}
 @keyframes floaty{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-12px) rotate(2deg)}}
 .menu-note{font-size:.85rem;color:rgba(207,231,223,.55);margin-top:1.4rem}
+
+/* ====== SCROLL STORY: the plate builds itself ====== */
+.story{max-width:none;padding:0;background:linear-gradient(180deg,var(--abyss) 0%,#0d2f2b 50%,var(--abyss) 100%)}
+.story-wrap{height:320vh;position:relative}
+.story-stage{position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;overflow:hidden}
+.story-stage h2{text-align:center;padding:0 1rem}
+.story-cap{height:2.2rem;margin-top:.4rem;font-family:var(--display);font-style:italic;font-size:clamp(1.05rem,2.6vw,1.5rem);color:var(--mango);opacity:0;transition:opacity .35s ease;text-align:center;padding:0 1rem}
+.story-cap.on{opacity:1}
+.story-svg{width:min(560px,92vw);height:auto;margin-top:.5rem}
+.story-svg .lyr{opacity:0;transform:translateY(-70px);transition:opacity .45s ease,transform .5s cubic-bezier(.2,.7,.25,1.25)}
+.story-svg .lyr.on{opacity:1;transform:none}
+.story-svg .steam-g{transition:opacity .45s ease}
+.story-hint{font-size:.78rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(207,231,223,.45);margin-top:1.4rem}
+
+/* 3D tilt + glare on dish cards */
+.dish{transform-style:preserve-3d;perspective:800px}
+.dish .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity .3s ease;
+  background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,236,200,.14),transparent 55%)}
+.dish:hover .glare{opacity:1}
 
 /* proof band */
 .proof{max-width:none;background:linear-gradient(180deg,var(--abyss),#0c2a27 50%,var(--abyss));text-align:center;padding:4.5rem 1.25rem}
@@ -192,6 +217,7 @@ body.link-hover .cursor-glow{width:230px;height:230px}
 
 <div class="hero">
   <canvas id="petals" aria-hidden="true"></canvas>
+  <div class="rays" aria-hidden="true"></div>
   <div class="sun" aria-hidden="true"></div>
   <div class="glow" aria-hidden="true"></div>
 
@@ -276,6 +302,53 @@ body.link-hover .cursor-glow{width:230px;height:230px}
   <p class="menu-note reveal">Sample menu preview — see our Facebook page or call for today's full menu and prices.</p>
   <!-- JUAN: confirm menu categories with owner — kept generic on purpose; ratings claims below sourced from public DoorDash/UberEats listings -->
 </section>
+
+<div class="story" aria-label="How a plate lunch comes together">
+  <div class="story-wrap" id="storywrap">
+    <div class="story-stage">
+      <p class="sec-kicker">Scroll — watch it come together</p>
+      <h2>Anatomy of a <em>plate lunch</em></h2>
+      <svg class="story-svg" viewBox="0 0 560 320" aria-hidden="true">
+        <ellipse cx="280" cy="286" rx="240" ry="16" fill="#04100f"/>
+        <g class="lyr" data-at="0.06">
+          <ellipse cx="280" cy="268" rx="190" ry="26" fill="#f7efe2"/>
+          <ellipse cx="280" cy="260" rx="165" ry="20" fill="#efe2cc"/>
+        </g>
+        <g class="lyr" data-at="0.22">
+          <ellipse cx="185" cy="246" rx="48" ry="20" fill="#fff"/>
+          <ellipse cx="185" cy="240" rx="42" ry="15" fill="#fdfaf3"/>
+        </g>
+        <g class="lyr" data-at="0.36">
+          <ellipse cx="268" cy="240" rx="44" ry="18" fill="#fff"/>
+          <ellipse cx="268" cy="235" rx="38" ry="13" fill="#fdfaf3"/>
+        </g>
+        <g class="lyr" data-at="0.52">
+          <ellipse cx="360" cy="244" rx="46" ry="16" fill="#f5d87a"/>
+          <ellipse cx="360" cy="240" rx="40" ry="12" fill="#fae7a3"/>
+          <ellipse cx="348" cy="238" rx="7" ry="3.5" fill="#e8b84d"/>
+          <ellipse cx="372" cy="241" rx="7" ry="3.5" fill="#e8b84d"/>
+        </g>
+        <g class="lyr" data-at="0.68">
+          <path d="M210 212 q44 -30 108 -14 q22 18 -4 32 q-66 16 -104 -18 Z" fill="#8a5a2b"/>
+          <path d="M224 212 l76 -10 M232 222 l72 -8" stroke="#6e4620" stroke-width="5" stroke-linecap="round"/>
+        </g>
+        <g class="lyr" data-at="0.8">
+          <ellipse cx="330" cy="206" rx="22" ry="9" fill="#c9e265"/>
+          <ellipse cx="310" cy="212" rx="12" ry="5" fill="#9fcf4e"/>
+        </g>
+        <g class="steam-g" data-at="0.9" opacity="0">
+          <g stroke="#dfe8e4" stroke-width="6" stroke-linecap="round" fill="none" opacity=".8">
+            <path d="M240 180 q8 -16 0 -32"><animate attributeName="opacity" values=".8;.15;.8" dur="3s" repeatCount="indefinite"/></path>
+            <path d="M280 174 q-8 -16 0 -32"><animate attributeName="opacity" values=".15;.8;.15" dur="3.3s" repeatCount="indefinite"/></path>
+            <path d="M320 180 q8 -16 0 -32"><animate attributeName="opacity" values=".8;.15;.8" dur="3.6s" repeatCount="indefinite"/></path>
+          </g>
+        </g>
+      </svg>
+      <p class="story-cap" id="storycap"></p>
+      <p class="story-hint">Keep scrolling</p>
+    </div>
+  </div>
+</div>
 
 <div class="proof">
   <p class="sec-kicker reveal">Don't take our word for it</p>
@@ -432,6 +505,37 @@ if(!rm)document.querySelectorAll('[data-magnet]').forEach(b=>{
 if(!rm){const sun=document.querySelector('.sun'),pl=document.querySelector('.palm.left'),pr=document.querySelector('.palm.right');
   addEventListener('scroll',()=>{const y=scrollY;if(y<900){
     sun.style.translate=`0 ${y*.28}px`;pl.style.translate=`0 ${y*.12}px`;pr.style.translate=`0 ${y*.16}px`}},{passive:true});
+}
+
+// SCROLL STORY: plate assembles with scroll progress
+const sw=document.getElementById('storywrap');
+if(sw){
+  const layers=[...sw.querySelectorAll('.lyr')],steam=sw.querySelector('.steam-g'),cap=document.getElementById('storycap');
+  const CAPS=[[0.06,'Start with the plate.'],[0.22,'Two scoops of rice…'],[0.52,'Creamy mac salad.'],[0.68,'The main — grilled fresh.'],[0.8,'A little green, for balance.'],[0.9,'That\u2019s a plate lunch. Call it in.']];
+  let capText='';
+  const update=()=>{
+    const r=sw.getBoundingClientRect();
+    const p=Math.min(Math.max(-r.top/(r.height-innerHeight),0),1);
+    for(const l of layers)l.classList.toggle('on',p>=parseFloat(l.dataset.at));
+    if(steam)steam.setAttribute('opacity',p>=parseFloat(steam.dataset.at)?'1':'0');
+    let txt='';for(const [at,t] of CAPS)if(p>=at)txt=t;
+    if(txt!==capText){capText=txt;cap.textContent=txt;cap.classList.toggle('on',!!txt)}
+  };
+  addEventListener('scroll',update,{passive:true});update();
+  if(rm){for(const l of layers)l.classList.add('on');if(steam)steam.setAttribute('opacity','1');cap.textContent=CAPS[CAPS.length-1][1];cap.classList.add('on')}
+}
+
+// 3D tilt + glare on dish cards
+if(!rm&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+  document.querySelectorAll('.dish').forEach(card=>{
+    const glare=document.createElement('div');glare.className='glare';card.appendChild(glare);
+    card.addEventListener('pointermove',e=>{
+      const r=card.getBoundingClientRect(),nx=(e.clientX-r.left)/r.width,ny=(e.clientY-r.top)/r.height;
+      card.style.transform=`translateY(-6px) rotateX(${((.5-ny)*7).toFixed(2)}deg) rotateY(${((nx-.5)*9).toFixed(2)}deg)`;
+      card.style.setProperty('--gx',(nx*100).toFixed(1)+'%');card.style.setProperty('--gy',(ny*100).toFixed(1)+'%');
+    });
+    card.addEventListener('pointerleave',()=>{card.style.transform=''});
+  });
 }
 </script>
 </body>
