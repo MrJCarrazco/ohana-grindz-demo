@@ -19,7 +19,10 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}
+/* entrance animations are the only thing that makes these visible; with animation
+   disabled they would stay at opacity:0 and the hero would render blank. */
+.kicker,.hero h1,.hero .sub,.cta-row,.hero .pin,.reveal{opacity:1!important;transform:none!important}}
 body{font-family:var(--body);color:var(--mist);background:var(--abyss);line-height:1.65;overflow-x:hidden}
 ::selection{background:var(--coral);color:#fff}
 
