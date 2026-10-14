@@ -12,6 +12,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500&family=Sora:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  /* height of the fixed Tap-to-Call bar at the bottom of the viewport;
+     used to keep the first view's bottom 56px of content out from under it */
+  --callbar-h:56px;
   --abyss:#061f1d; --lagoon:#0a2e2b; --lagoon2:#10403b;
   --coral:#ff5a36; --coral-hot:#ff7a50; --mango:#ffb43a; --seafoam:#9ed8c8;
   --sand:#f7efe2; --ink:#12201e; --mist:#cfe7df;
@@ -202,6 +205,18 @@ body.link-hover .cursor-glow{width:230px;height:230px}
   .find-grid{grid-template-columns:1fr}
   section{padding:3.4rem 1.1rem}
   .palm.left{left:-70px}.palm.right{right:-80px}
+  /* --- Tap-to-Call bar clearance (phones only) -------------------------
+     .sticky-call is position:fixed, so the bottom var(--callbar-h) of the
+     first view is covered by the bar and is not usable space. The hero is
+     taller than what is left, which pushed its last line - the address -
+     under the bar. Shorten the hero's reserved height by the bar, pull its
+     top padding in by the same amount (never tighter than 1rem) and tighten
+     the two gaps above the address line. Measured clearance at 390x844 is
+     then >=15px even with the webfonts unavailable (fallback metrics run
+     taller). Desktop layout, colours and animation are untouched. */
+  .hero{min-height:calc(92vh - var(--callbar-h));padding-top:max(1rem,calc(4.5rem - var(--callbar-h)))}
+  .hero .sub{margin-bottom:1.4rem}
+  .hero .pin{margin-top:.8rem}
 }
 </style>
 </head>
@@ -214,7 +229,7 @@ body.link-hover .cursor-glow{width:230px;height:230px}
 
 <header>
   <div class="logo">&#699;Ohana <em>Grindz</em></div>
-  <!-- JUAN: verify phone with owner before commissioning -->
+  <!-- TODO (studio): verify phone with owner before commissioning -->
   <a class="call-top" href="tel:+19073760808">📞 907-376-0808</a>
 </header>
 
@@ -303,7 +318,7 @@ body.link-hover .cursor-glow{width:230px;height:230px}
     </div>
   </div>
   <p class="menu-note reveal">Sample menu preview — see our Facebook page or call for today's full menu and prices.</p>
-  <!-- JUAN: confirm menu categories with owner — kept generic on purpose; ratings claims below sourced from public DoorDash/UberEats listings -->
+  <!-- TODO (studio): confirm menu categories with owner — kept generic on purpose; ratings claims below sourced from public DoorDash/UberEats listings -->
 </section>
 
 <div class="story" aria-label="How a plate lunch comes together">
