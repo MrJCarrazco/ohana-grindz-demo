@@ -1,0 +1,34 @@
+/* Scoped mechanical accessibility and policy additions; retain original design. */
+:root{--legal-bg:#061f1d;--legal-panel:#0a2e2b;--legal-text:#cfe7df;--legal-link:#ffb43a;--legal-muted:#b6d8ce}
+html{scroll-padding-top:7rem;scroll-padding-bottom:5rem}
+:where(a,button,input,textarea,[tabindex]):focus-visible{outline:3px solid #ffd54f!important;outline-offset:4px!important;box-shadow:0 0 0 6px #101820!important}
+a{color:var(--legal-link)}
+.skip-link{position:fixed;top:8px;left:8px;z-index:200;transform:translateY(-200%);padding:.7rem 1rem;background:#111;color:#ffd54f;font:700 1rem system-ui}
+.skip-link:focus{transform:none}
+.legal-nav{margin:1rem auto;line-height:2.5}
+.legal-nav a,.legal-footer a{display:inline-block;padding:.15rem .35rem;text-decoration:underline}
+footer,.menu-note,.proof-src,.map-note,.find-card .note,.cat-inner small,.est-inner small{color:var(--legal-muted)}
+small a{text-decoration:underline}
+input:disabled,textarea:disabled,button:disabled{opacity:1;cursor:not-allowed;-webkit-text-fill-color:currentColor}
+#petals,#sparks{width:100%;height:100%;max-width:100%}
+.hours caption{text-align:left;color:var(--legal-muted);font-size:.9rem;padding:.6rem 0}
+.hours th{text-align:left;font-weight:400;padding:.4rem .2rem;border-bottom:1px solid #454b52;font-size:.95rem}
+@media (max-width:480px){header{padding:.8rem 1rem;flex-wrap:wrap}.call-top{flex-shrink:0}}
+@media (prefers-reduced-motion:reduce){html.js .reveal{opacity:1!important;transform:none!important}.cursor-dot,.cursor-glow{display:none}.story-wrap{height:auto}.story-stage{position:relative;height:auto;min-height:0;padding:3rem 0}.story-svg .lyr,.story-svg .steam-g,.story-cap{opacity:1!important;transform:none!important}.story-hint{display:none}}
+.policy-page{margin:0;color:var(--legal-text);background:var(--legal-bg);font:1rem/1.7 system-ui,sans-serif}
+.policy-page *{box-sizing:border-box}
+.policy-page .demo-banner{padding:3px;background:repeating-linear-gradient(45deg,#ffd54f,#ffd54f 12px,#111 12px,#111 24px)}
+.policy-page .demo-banner p{margin:0;background:#111;color:#ffd54f;text-align:center;font-weight:700;font-size:.85rem;padding:.7rem}
+.policy-header{position:static;display:block;padding:1rem 1.25rem;background:var(--legal-panel)}
+.policy-content{max-width:52rem;margin:0 auto;padding:2.5rem 1.25rem}
+.policy-content h1{font-size:clamp(2rem,6vw,3rem);line-height:1.2}
+.policy-content h2{font-size:1.35rem;line-height:1.4;margin:2rem 0 .5rem}
+.policy-content p{margin:0 0 1rem}
+.policy-content a{overflow-wrap:anywhere}
+.policy-page .legal-footer{padding:1.5rem 1.25rem;background:var(--legal-panel);color:var(--legal-text);text-align:center;font-size:.9rem}
+
+.call-top,.cta.primary,.order-links .call,.cat-inner button,.sticky-call a,.marquee{color:#12201e}
+.story-hint{color:#b6d8ce}
+/* Keep the sunset visible while giving foreground copy a stable dark backing. */
+.hero h1,.hero .sub,.hero .pin{background:rgba(6,31,29,.9);border-radius:12px;padding:.2em .4em}
+.hero .pin{display:inline-block}

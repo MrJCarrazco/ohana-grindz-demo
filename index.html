@@ -168,8 +168,8 @@ footer{background:#04100f;color:rgba(158,216,200,.55);text-align:center;padding:
 .sticky-call a{color:#fff;font-weight:800;text-decoration:none;font-size:1.05rem;letter-spacing:.02em}
 
 /* reveals */
-.reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
-.reveal.in{opacity:1;transform:none}
+html.js .reveal{opacity:0;transform:translateY(30px);transition:opacity .8s ease,transform .8s ease}
+html.js .reveal.in{opacity:1;transform:none}
 .reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
 
 /* film grain — cinematic texture over everything */
@@ -221,10 +221,13 @@ body.link-hover .cursor-glow{width:230px;height:230px}
   .hero .pin{margin-top:.8rem}
 }
 </style>
+<link rel="stylesheet" href="compliance.css">
+<script>document.documentElement.classList.add("js");setTimeout(function(){document.querySelectorAll(".reveal").forEach(function(e){e.classList.add("in")})},2200);document.addEventListener("DOMContentLoaded",function(){if(matchMedia("(prefers-reduced-motion: reduce)").matches){document.querySelectorAll("svg").forEach(function(s){if(s.pauseAnimations)s.pauseAnimations()})}});</script>
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 
-<div class="demo-banner"><p>UNSOLICITED DEMO by Digital Consulting Studios — not commissioned by or affiliated with 'Ohana Grindz. Public-listing details only; call to confirm.</p></div>
+<div class="demo-banner"><p>Demo design preview — not the official business website<br>UNSOLICITED DEMO by Digital Consulting Studios — not commissioned by or affiliated with 'Ohana Grindz. Public-listing details only; call to confirm.</p></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="cursor-glow" aria-hidden="true"></div>
 <div class="cursor-dot" aria-hidden="true"></div>
@@ -234,6 +237,7 @@ body.link-hover .cursor-glow{width:230px;height:230px}
   <a class="call-top" href="tel:+19073760808">📞 907-376-0808</a>
 </header>
 
+<main id="main">
 <div class="hero">
   <canvas id="petals" aria-hidden="true"></canvas>
   <div class="rays" aria-hidden="true"></div>
@@ -410,19 +414,21 @@ body.link-hover .cursor-glow{width:230px;height:230px}
     <p class="sec-kicker reveal">Layout preview only</p>
     <h2 class="reveal">Demo <em>inquiry form</em></h2>
     <p class="reveal" style="color:var(--mist)">For menu or availability questions, use the listed phone number. This preview does not confirm catering or large-order service.</p>
-    <form class="reveal" onsubmit="alert('Demo only. Nothing is sent or stored.');return false">
-      <label for="n">Name</label><input id="n" name="name" required>
-      <label for="p">Phone</label><input id="p" name="phone" type="tel" required>
-      <label for="m">Your question</label><textarea id="m" name="message" rows="4" required></textarea>
-      <button type="submit">Demo only — does not send</button>
-      <small>Layout preview only. Nothing is sent or booked. Do not enter personal information.</small>
+    <form class="reveal" aria-describedby="demo-form-note" onsubmit="return false">
+      <label for="n">Name</label><input disabled id="n" name="name" required>
+      <label for="p">Phone</label><input disabled id="p" name="phone" type="tel" required>
+      <label for="m">Your question</label><textarea disabled id="m" name="message" rows="4" required></textarea>
+      <button disabled type="submit">Demo only — does not send</button>
+      <small id="demo-form-note">Disabled demonstration form. Layout preview only. Nothing is sent or booked. Do not enter personal information. <a href="privacy.html">Privacy notice</a> · <a href="terms.html">Terms of use</a>.</small>
     </form>
   </div>
 </div>
 
+</main>
 <footer>
   <p>Unsolicited concept by Digital Consulting Studios — not commissioned by, affiliated with or endorsed by 'Ohana Grindz.</p>
   <p>Public-listing details retrieved October 16, 2026. No claim of owner approval, preparation methods, portion sizes or catering availability.</p>
+<nav class="legal-nav" aria-label="Preview policies"><a href="index.html">Design preview</a> · <a href="privacy.html">Privacy notice</a> · <a href="terms.html">Terms of use</a></nav><p>Design preview © 2026 Digital Consulting Studios; third-party rights remain with their owners.</p>
 </footer>
 
 <div class="sticky-call"><a href="tel:+19073760808">📞 Tap to Call — 907-376-0808</a></div>
@@ -463,7 +469,7 @@ if(h1&&!matchMedia('(prefers-reduced-motion: reduce)').matches){
 
 // custom cursor
 const dot=document.querySelector('.cursor-dot'),glow=document.querySelector('.cursor-glow');
-if(dot&&matchMedia('(hover:hover) and (pointer:fine)').matches){
+if(dot&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&matchMedia('(hover:hover) and (pointer:fine)').matches){
   let gx=innerWidth/2,gy=innerHeight/2,tx=gx,ty=gy;
   addEventListener('pointermove',e=>{tx=e.clientX;ty=e.clientY;dot.style.left=tx+'px';dot.style.top=ty+'px'});
   (function glide(){gx+=(tx-gx)*.12;gy+=(ty-gy)*.12;glow.style.left=gx+'px';glow.style.top=gy+'px';requestAnimationFrame(glide)})();
@@ -523,7 +529,7 @@ if(sw){
   let capText='';
   const update=()=>{
     const r=sw.getBoundingClientRect();
-    const p=Math.min(Math.max(-r.top/(r.height-innerHeight),0),1);
+    const p=rm?1:Math.min(Math.max(-r.top/(r.height-innerHeight),0),1);
     for(const l of layers)l.classList.toggle('on',p>=parseFloat(l.dataset.at));
     if(steam)steam.setAttribute('opacity',p>=parseFloat(steam.dataset.at)?'1':'0');
     let txt='';for(const [at,t] of CAPS)if(p>=at)txt=t;
